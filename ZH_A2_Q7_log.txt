@@ -1,0 +1,58 @@
+ 
+ 1          OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 72         
+ 73         LIBNAME orion BASE "/global/home/ut_zhan1/RSM8411/Assignment2/Datasets";
+ NOTE: Libref ORION was successfully assigned as follows: 
+       Engine:        BASE 
+       Physical Name: /global/home/ut_zhan1/RSM8411/Assignment2/Datasets
+ 74         
+ 75         /* a) Orion Star would like a data set containing only the small retail stores from these observations. */
+ 76         data work.newcompetitors;
+ 77         set orion.newcompetitors;
+ NOTE: Data file ORION.NEWCOMPETITORS.DATA is in a format that is native to another host, or the file encoding does not match the 
+       session encoding. Cross Environment Data Access will be used, which might require additional CPU resources and might reduce 
+       performance.
+ 78         
+ 79         /* Create a new variable, Country, that contains the first two characters of ID */;
+ 80         Country = substr(ID,1,2);
+ 81         
+ 82         /* Create a new variable, Store_Code, that contains the other characters from the value in
+ 83         ID. Left justify the value so that there are no leading blanks. */;
+ 84         Store_Code = strip(substr(ID,3));
+ 85         
+ 86         /*The first character in the value of Store_Code indicates the size of the store, and 1 is the
+ 87         code for a small retail store. */;
+ 88         if substr(Store_Code,1,1) NE 1
+ 89         THEN DELETE;
+ 90         
+ 91         /* Make sure that the City values appear in proper case */;
+ 92         City = propcase(City);
+ 93         run;
+ 
+ NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+       88:5   
+ NOTE: There were 7 observations read from the data set ORION.NEWCOMPETITORS.
+ NOTE: The data set WORK.NEWCOMPETITORS has 5 observations and 5 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.01 seconds
+       cpu time            0.00 seconds
+       
+ 
+ 93       !     
+ 94         
+ 95         /* b) Print your results with an appropriate title. Only show columns Store_Code, Country, City, and Postal_Code. */;
+ 96         title "New Small-Store Competitors";
+ 97         proc print data=work.newcompetitors;
+ 98         var Store_Code Country City Postal_Code;
+ 99         run;
+ 
+ NOTE: There were 5 observations read from the data set WORK.NEWCOMPETITORS.
+ NOTE: PROCEDURE PRINT used (Total process time):
+       real time           0.05 seconds
+       cpu time            0.05 seconds
+       
+ 
+ 100        title;
+ 101        
+ 102        OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 115        

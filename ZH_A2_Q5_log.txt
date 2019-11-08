@@ -1,0 +1,87 @@
+ 
+ 1          OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 72         
+ 73         
+ 74         proc sort data=orion.shoes_eclipse
+ 75         out=work.eclipsesort;
+ NOTE: Data file ORION.SHOES_ECLIPSE.DATA is in a format that is native to another host, or the file encoding does not match the 
+       session encoding. Cross Environment Data Access will be used, which might require additional CPU resources and might reduce 
+       performance.
+ 76             by Product_Name;
+ 77         run;
+ 
+ NOTE: There were 14 observations read from the data set ORION.SHOES_ECLIPSE.
+ NOTE: The data set WORK.ECLIPSESORT has 14 observations and 5 variables.
+ NOTE: PROCEDURE SORT used (Total process time):
+       real time           0.01 seconds
+       cpu time            0.01 seconds
+       
+ 
+ 78         
+ 79         /* a) Add a PROC SORT step after the PROC SORT step to sort orion.shoes_tracker by Product_Name to create a new data set
+ 79       ! named work.trackersort. */;
+ 80         
+ 81         data prod_name;
+ 82         set orion.shoes_tracker;
+ NOTE: Data file ORION.SHOES_TRACKER.DATA is in a format that is native to another host, or the file encoding does not match the 
+       session encoding. Cross Environment Data Access will be used, which might require additional CPU resources and might reduce 
+       performance.
+ 83             Product_Name = propcase(Product_Name);
+ 84         run;
+ 
+ NOTE: There were 10 observations read from the data set ORION.SHOES_TRACKER.
+ NOTE: The data set WORK.PROD_NAME has 10 observations and 7 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.01 seconds
+       cpu time            0.01 seconds
+       
+ 
+ 85         
+ 86         proc sort data=prod_name
+ 87         out=work.trackersort;
+ 88             by Product_Name;
+ 89         run;
+ 
+ NOTE: There were 10 observations read from the data set WORK.PROD_NAME.
+ NOTE: The data set WORK.TRACKERSORT has 10 observations and 7 variables.
+ NOTE: PROCEDURE SORT used (Total process time):
+       real time           0.00 seconds
+       cpu time            0.00 seconds
+       
+ 
+ 90         
+ 91         /* b) Add a DATA step after the two PROC SORT steps to interleave the two sorted data sets by Product_Name to create a
+ 91       ! new data set named work.e_t_shoes. Include only the following variables: Product_Group, Product_Name, and Supplier_ID. */
+ 91       ! ;
+ 92         
+ 93         data work.e_t_shoes;
+ 94         set eclipsesort trackersort;
+ 95         by Product_Name;
+ 96         
+ 97         keep Product_Group Product_Name Supplier_ID;
+ 98         run;
+ 
+ NOTE: There were 14 observations read from the data set WORK.ECLIPSESORT.
+ NOTE: There were 10 observations read from the data set WORK.TRACKERSORT.
+ NOTE: The data set WORK.E_T_SHOES has 24 observations and 3 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       cpu time            0.01 seconds
+       
+ 
+ 99         
+ 100        /* c)Create the report that prints the data */;
+ 101        
+ 102        proc print data=e_t_shoes;
+ 103        var Product_Group Product_Name Supplier_ID;
+ 104        run;
+ 
+ NOTE: There were 24 observations read from the data set WORK.E_T_SHOES.
+ NOTE: PROCEDURE PRINT used (Total process time):
+       real time           0.07 seconds
+       cpu time            0.08 seconds
+       
+ 
+ 105        
+ 106        OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 119        

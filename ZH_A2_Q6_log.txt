@@ -1,0 +1,61 @@
+ 
+ 1          OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 72         
+ 73         LIBNAME orion BASE "/global/home/ut_zhan1/RSM8411/Assignment2/Datasets";
+ NOTE: Libref ORION was successfully assigned as follows: 
+       Engine:        BASE 
+       Physical Name: /global/home/ut_zhan1/RSM8411/Assignment2/Datasets
+ 74         
+ 75         /* a)Write a DATA step that reads orion.orders to create work.ordertype. */;
+ 76         data work.ordertype;
+ 77         set orion.orders;
+ NOTE: Data file ORION.ORDERS.DATA is in a format that is native to another host, or the file encoding does not match the session 
+       encoding. Cross Environment Data Access will be used, which might require additional CPU resources and might reduce 
+       performance.
+ 78         
+ 79         /* b)Create a new variable, DayOfWeek, that is equal to the weekday of Order_Date */;
+ 80         
+ 81         DayOfWeek = weekday(Order_Date);
+ 82         
+ 83         /* c) Create the new variable Type */ ;
+ 84         
+ 85         length Type $ 15;
+ 86         if Order_Type eq 1 THEN Type="Retail Sale";
+ 87         else if Order_Type eq 2 THEN Type="Catalog Sale";
+ 88         else if Order_Type eq 3 THEN Type="Internet Sale";
+ 89         
+ 90         /* d) Create the new variable SaleAds*/;
+ 91         
+ 92         if Order_Type eq 2 THEN SaleAds="Mail";
+ 93         else if Order_Type eq 3 THEN SaleAds="Email";
+ 94         
+ 95         /* e) Remove Order_Type, Employee_ID and Customer_ID in the new data set.*/;
+ 96         
+ 97         drop Order_Type Employee_ID Customer_ID;
+ 98         
+ 99         run;
+ 
+ NOTE: There were 490 observations read from the data set ORION.ORDERS.
+ NOTE: The data set WORK.ORDERTYPE has 490 observations and 6 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.01 seconds
+       cpu time            0.01 seconds
+       
+ 
+ 100        
+ 101        /* f) Create and print the report*/;
+ 102        
+ 103        proc print data=work.ordertype;
+ 104        run;
+ 
+ NOTE: There were 490 observations read from the data set WORK.ORDERTYPE.
+ NOTE: PROCEDURE PRINT used (Total process time):
+       real time           1.02 seconds
+       cpu time            1.01 seconds
+       
+ 
+ 105        
+ 106        
+ 107        
+ 108        OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 121        

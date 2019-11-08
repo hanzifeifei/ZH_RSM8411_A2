@@ -1,0 +1,80 @@
+ 
+ 1          OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 72         
+ 73         daat work.newsalesemps;
+            ____
+            14
+ WARNING 14-169: Assuming the symbol DATA was misspelled as daat.
+ 
+ 74         length First_Name $12
+ 75         Last_Name $ 18
+ 76         Job_Title $ 25;
+ 77         infile '/tutorials/eg/data/ecprg1/newemps.csv dlm=',';
+ 78         input First_Name $
+ 79         Last_Name $
+ 80         Job_Title $ Salary /* Salary is Numeric ;
+ 81         run;
+ 82         proc print newsalesemps
+ 83          run;
+ 84          title 'New Sales Employees';
+ 85         
+ 86         proc means data=work.newsalesemps average max;
+ 87         class job_title;
+ 88         var salary;
+ 89         run;
+ 90         title;
+ 77         infile '/tutorials/eg/data/ecprg1/newemps.csv dlm=',';
+                                                               _
+                                                               23
+ ERROR 23-2: Invalid option name ,.
+ 
+ 84          title 'New Sales Employees';
+                     __
+                     23
+ ERROR 23-2: Invalid option name EW.
+ 
+ 84          title 'New Sales Employees';
+                        _____
+                        23
+ ERROR 23-2: Invalid option name SALES.
+ 
+ 84          title 'New Sales Employees';
+                              _________
+                              23
+ ERROR 23-2: Invalid option name EMPLOYEES.
+ 
+ 91         
+ 92         
+ 93         OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 94         ODS HTML CLOSE;
+ 95         &GRAPHTERM; ;*';*";*/;RUN;
+ 
+ NOTE: The SAS System stopped processing this step because of errors.
+ WARNING: The data set WORK.NEWSALESEMPS may be incomplete.  When this step was stopped there were 0 observations and 3 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       cpu time            0.00 seconds
+       
+ 
+ 
+ 95       !                           QUIT;
+ 96         QUIT;RUN;
+ 97         ODS HTML5 (ID=WEB) CLOSE;
+ 98         
+ 99         ODS RTF (ID=WEB) CLOSE;
+ 100        ODS PDF (ID=WEB) CLOSE;
+ NOTE: ODS PDF(WEB) printed no output. 
+       (This sometimes results from failing to place a RUN statement before the ODS PDF(WEB) CLOSE statement.)
+ 101        FILENAME _GSFNAME;
+ NOTE: Fileref _GSFNAME has been deassigned.
+ 102        DATA _NULL_;
+ 103        RUN;
+ 
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       cpu time            0.00 seconds
+       
+ 
+ 104        OPTIONS VALIDMEMNAME=COMPAT;
+ 105        OPTIONS NOTES STIMER SOURCE SYNTAXCHECK;
+ 106        

@@ -1,0 +1,112 @@
+ 
+ 1          OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 72         
+ 73         LIBNAME orion BASE "/global/home/ut_zhan1/RSM8411/Assignment2";
+ NOTE: Libref ORION was successfully assigned as follows: 
+       Engine:        BASE 
+       Physical Name: /global/home/ut_zhan1/RSM8411/Assignment2
+ 74         
+ 75         /* a) Printing the contents of the three tables */;
+ 76         
+ 77         proc contents data=orion.shoes_eclipse;
+ ERROR: File ORION.SHOES_ECLIPSE.DATA does not exist.
+ 78         run;
+ 
+ NOTE: Statements not processed because of errors noted above.
+ NOTE: PROCEDURE CONTENTS used (Total process time):
+       real time           0.00 seconds
+       cpu time            0.00 seconds
+       
+ NOTE: The SAS System stopped processing this step because of errors.
+ 79         
+ 
+ 
+ 80         proc contents data=orion.shoes_tracker;
+ ERROR: File ORION.SHOES_TRACKER.DATA does not exist.
+ 81         run;
+ 
+ NOTE: Statements not processed because of errors noted above.
+ NOTE: PROCEDURE CONTENTS used (Total process time):
+       real time           0.00 seconds
+       cpu time            0.01 seconds
+       
+ NOTE: The SAS System stopped processing this step because of errors.
+ 82         
+ 
+ 
+ 83         proc contents data=orion.shoes;
+ ERROR: File ORION.SHOES.DATA does not exist.
+ 84         run;
+ 
+ NOTE: Statements not processed because of errors noted above.
+ NOTE: PROCEDURE CONTENTS used (Total process time):
+       real time           0.00 seconds
+       cpu time            0.01 seconds
+       
+ NOTE: The SAS System stopped processing this step because of errors.
+ 85         
+ 86         /*b and c) Use APPEND statement. FORCE is used when there are no matching columns */;
+ 87         
+ 
+ 
+ 88         proc datasets;
+ 
+ NOTE: PROCEDURE DATASETS used (Total process time):
+       real time           0.14 seconds
+       cpu time            0.06 seconds
+       
+ 
+ 89          data work.orion_shoes;
+ 90         set orion.shoes;
+ ERROR: File ORION.SHOES.DATA does not exist.
+ 91         
+ 92         
+ 
+ NOTE: The SAS System stopped processing this step because of errors.
+ WARNING: The data set WORK.ORION_SHOES may be incomplete.  When this step was stopped there were 0 observations and 0 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       cpu time            0.00 seconds
+       
+ 
+ 
+ 92       !  proc append base=work.orion_shoes data=orion.shoes_eclipse;
+ ERROR: File ORION.SHOES_ECLIPSE.DATA does not exist.
+ 93         
+ 
+ NOTE: Statements not processed because of errors noted above.
+ NOTE: The SAS System stopped processing this step because of errors.
+ NOTE: PROCEDURE APPEND used (Total process time):
+       real time           0.00 seconds
+       cpu time            0.00 seconds
+       
+ 
+ 
+ 93       !  proc append base=work.orion_shoes data=orion.shoes_tracker force;
+ ERROR: File ORION.SHOES_TRACKER.DATA does not exist.
+ 94         
+ 95         run;
+ 
+ NOTE: Statements not processed because of errors noted above.
+ NOTE: PROCEDURE APPEND used (Total process time):
+       real time           0.00 seconds
+       cpu time            0.01 seconds
+       
+ NOTE: The SAS System stopped processing this step because of errors.
+ 96         
+ 97         /* Printing the dataset */;
+ 98         
+ 
+ 
+ 99          proc print data=work.orion_shoes;
+ 100         run;
+ 
+ NOTE: No variables in data set WORK.ORION_SHOES.
+ NOTE: PROCEDURE PRINT used (Total process time):
+       real time           0.00 seconds
+       cpu time            0.00 seconds
+       
+ 
+ 101        
+ 102        OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 115        

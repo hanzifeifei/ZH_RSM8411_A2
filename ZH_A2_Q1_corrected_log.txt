@@ -1,0 +1,59 @@
+ 
+ 1          OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 72         
+ 73         data work.newsalesemps;
+ 74         length First_Name $12
+ 75         Last_Name $ 18
+ 76         Job_Title $ 25;
+ 77         infile '/global/home/ut_zhan1/RSM8411/Assignment2/Datasets/newemps.csv' dlm=',';
+ 78         
+ 79         input First_Name $
+ 80         Last_Name $
+ 81         Job_Title $
+ 82         Salary /* Salary is Numeric */ ;
+ 83         run;
+ 
+ NOTE: The infile '/global/home/ut_zhan1/RSM8411/Assignment2/Datasets/newemps.csv' is:
+       Filename=/global/home/ut_zhan1/RSM8411/Assignment2/Datasets/newemps.csv,
+       Owner Name=ut_zhan1,Group Name=rotman,
+       Access Permission=-rw-r--r--,
+       Last Modified=November 07, 2019 13:47:48,
+       File Size (bytes)=2604
+ 
+ NOTE: 71 records were read from the infile '/global/home/ut_zhan1/RSM8411/Assignment2/Datasets/newemps.csv'.
+       The minimum record length was 28.
+       The maximum record length was 47.
+ NOTE: The data set WORK.NEWSALESEMPS has 71 observations and 4 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.73 seconds
+       cpu time            0.01 seconds
+       
+ 
+ 84         
+ 85         proc print data=newsalesemps;
+ 86         run;
+ 
+ NOTE: There were 71 observations read from the data set WORK.NEWSALESEMPS.
+ NOTE: PROCEDURE PRINT used (Total process time):
+       real time           0.15 seconds
+       cpu time            0.15 seconds
+       
+ 
+ 87         
+ 88         title 'New Sales Employees';
+ 89         
+ 90         proc means data=newsalesemps mean max;
+ 91         class job_title;
+ 92         var salary;
+ 93         run;
+ 
+ NOTE: There were 71 observations read from the data set WORK.NEWSALESEMPS.
+ NOTE: PROCEDURE MEANS used (Total process time):
+       real time           0.04 seconds
+       cpu time            0.05 seconds
+       
+ 
+ 94         title;
+ 95         
+ 96         OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 109        
